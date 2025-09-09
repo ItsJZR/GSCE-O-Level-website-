@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PSLE Study Helper</title>
+  <style>
+    :root{
+      --bg:#20100b;--panel:#30150f;--muted:#ffb78c;--text:#fff4ec;--accent:#ff9c6e;--chip:#47231b;--chip-active:#73372b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Arial, sans-serif; color:var(--text);
+      background:radial-gradient(1200px 600px at 10% -10%, #54301b 0%, rgba(32,16,11,0) 60%),radial-gradient(900px 500px at 110% 10%, #4a2013 0%, rgba(32,16,11,0) 60%),var(--bg);
+    }
+    .nav {
+      display:flex; gap:20px; padding:14px 24px;
+      background:rgba(70,35,20,0.8); backdrop-filter:blur(8px);
+      position:sticky; top:0; z-index:10;
+    }
+    .nav a { color:var(--text); text-decoration:none; font-weight:600; }
+    .nav a.active { color:#ff9c6e; border-bottom:2px solid #ff9c6e; }
+    .nav a:hover { opacity:.85; }
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    h1{font-size:28px;margin:0}
+    .tabs{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+    .tab{padding:10px 16px;border-radius:12px;cursor:pointer;background:#4a2013;color:var(--text);border:1px solid rgba(255,255,255,.12)}
+    .tab.active{background:linear-gradient(90deg,#ff9c6e,#ffc76e);color:#2b140d;font-weight:700}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:18px;margin-top:16px}
+    .panel{padding:18px}
+    label{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;opacity:.85;margin-bottom:8px}
+    input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:#33140e;color:var(--text)}
+    button{background:linear-gradient(90deg,#ff9c6e,#ffc76e);color:#2b140d;padding:12px 16px;border-radius:12px;font-weight:800;border:none;cursor:pointer}
+    .results{margin-top:18px}
+    .result{display:flex;justify-content:space-between;align-items:center;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);margin-bottom:10px}
+    .result a{color:var(--accent);text-decoration:none}
+    .footer{opacity:.7;text-align:center;padding:20px}
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="gcse.html">GCSE / O-Level</a>
+    <a href="psle.html" class="active">PSLE</a>
+  </div>
+
+  <div class="container">
+    <h1>PSLE Study Helper</h1>
+    <div class="tabs">
+      <div class="tab active" data-tab="papers">Past Papers</div>
+      <div class="tab" data-tab="videos">Videos</div>
+    </div>
+
+    <!-- Past Papers -->
+    <div class="card tab-panel" id="tab-papers">
+      <div class="panel">
+        <label for="psle-subject">Subject</label>
+        <input type="text" id="psle-subject" placeholder="e.g., English, Math, Science">
+        <label for="psle-year">Year (optional)</label>
+        <input type="number" id="psle-year" placeholder="e.g., 2022">
+        <button id="psleBtn">Generate Search Links</button>
+        <div class="results" id="psle-results"></div>
+      </div>
+    </div>
+
+    <!-- Videos -->
+    <div class="card tab-panel" id="tab-videos" style="display:none">
+      <div class="panel">
+        <label for="video-subject">Subject</label>
+        <input type="text" id="video-subject" placeholder="e.g., Math, Science">
+        <label for="video-topic">Topic (optional)</label>
+        <input type="text" id="video-topic" placeholder="e.g., Fractions, Life Cycle of Plants">
+        <button id="videoBtn">Generate Video Links</button>
+        <div class="results" id="video-results"></div>
+      </div>
+    </div>
+
+    <div class="footer">PSLE Edition • v1.0</div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+        const id=tab.dataset.tab;
+        document.querySelectorAll('.tab-panel').forEach(p=>p.style.display='none');
+        document.getElementById('tab-'+id).style.display='block';
+      });
+    });
+
+    // PSLE Papers
+    document.getElementById('psleBtn').addEventListener('click', ()=>{
+      const subj=document.getElementById('psle-subject').value.trim();
+      const year=document.getElementById('psle-year').value.trim();
+      const query=`${subj} PSLE past year paper Singapore ${year}`;
+      const engines=[{name:"Google",url:"https://www.google.com/search?q="},{name:"Bing",url:"https://www.bing.com/search?q="}];
+      const out=document.getElementById('psle-results'); out.innerHTML='';
+      engines.forEach(e=>{
+        const link=e.url+encodeURIComponent(query);
+        const div=document.createElement('div'); div.className='result';
+        div.innerHTML=`<strong>${e.name}:</strong> <a href="${link}" target="_blank">${query}</a>`;
+        out.appendChild(div);
+      });
+    });
+
+    // PSLE Videos
+    document.getElementById('videoBtn').addEventListener('click', ()=>{
+      const subj=document.getElementById('video-subject').value.trim();
+      const topic=document.getElementById('video-topic').value.trim();
+      if(!subj){alert("Please enter a subject.");return;}
+      const query=`${subj} ${topic} PSLE tutorial Singapore`;
+      const sources=[
+        {name:"YouTube",base:"https://www.youtube.com/results?search_query="},
+        {name:"Khan Academy",base:"https://www.khanacademy.org/search?query="},
+        {name:"MOE Singapore Resources",base:"https://www.google.com/search?q=site:moe.gov.sg+"}
+      ];
+      const out=document.getElementById('video-results'); out.innerHTML='';
+      sources.forEach(src=>{
+        const link=src.base+encodeURIComponent(query);
+        const div=document.createElement('div'); div.className='result';
+        div.innerHTML=`<strong>${src.name}:</strong> <a href="${link}" target="_blank">${query}</a>`;
+        out.appendChild(div);
+      });
+    });
+  </script>
+</body>
+</html>
