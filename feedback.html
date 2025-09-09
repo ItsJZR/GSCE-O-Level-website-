@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feedback - Study Helper</title>
+  <style>
+    :root{
+      --bg:#0b1020;--text:#e9ecff;--accent:#6ea8ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Arial, sans-serif; color:var(--text);
+      background:radial-gradient(1200px 600px at 10% -10%, #1b2554 0%, rgba(11,16,32,0) 60%),
+                 radial-gradient(900px 500px at 110% 10%, #13204a 0%, rgba(11,16,32,0) 60%),
+                 var(--bg);
+    }
+    .nav {
+      display:flex; gap:20px; padding:14px 24px;
+      background:rgba(20,30,70,0.8); backdrop-filter:blur(8px);
+      position:sticky; top:0; z-index:10;
+    }
+    .nav a { color:var(--text); text-decoration:none; font-weight:600; }
+    .nav a.active { color:#6ea8ff; border-bottom:2px solid #6ea8ff; }
+    .nav a:hover { opacity:.8; }
+    .container{max-width:600px;margin:40px auto;padding:24px;background:rgba(255,255,255,0.05);border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,0.3)}
+    h1{font-size:26px;text-align:center;margin-bottom:20px}
+    label{display:block;margin-top:12px;font-size:14px;opacity:.85}
+    input, textarea{
+      width:100%;padding:12px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.15);
+      background:#0e1533;color:var(--text);
+      margin-top:6px;
+    }
+    textarea{resize:vertical;min-height:120px}
+    button{
+      margin-top:20px;width:100%;padding:14px;
+      background:linear-gradient(90deg,#6ea8ff,#9f8bff);
+      color:#0d1233;font-weight:700;border:none;border-radius:12px;cursor:pointer
+    }
+    button:hover{opacity:.9}
+    .thank-you{
+      display:none;margin-top:20px;padding:12px;border-radius:12px;
+      background:rgba(255,255,255,0.1);color:#a6ffb5;text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="gcse.html">GCSE / O-Level</a>
+    <a href="psle.html">PSLE</a>
+    <a href="feedback.html" class="active">Feedback</a>
+  </div>
+
+  <div class="container">
+    <h1>💬 Feedback</h1>
+    <form id="feedback-form" action="https://formspree.io/f/mjkelvap" method="POST">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" placeholder="Your name" required>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" placeholder="Your email" required>
+
+      <label for="message">Message</label>
+      <textarea name="message" id="message" placeholder="Your feedback..." required></textarea>
+
+      <button type="submit">Send Feedback</button>
+    </form>
+
+    <div class="thank-you" id="thank-you">
+      ✅ Thank you for your feedback! We’ll review it soon.
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('feedback-form');
+    const thankYou = document.getElementById('thank-you');
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      if(response.ok){
+        form.style.display = 'none';
+        thankYou.style.display = 'block';
+      } else {
+        alert("Oops! Something went wrong, please try again later.");
+      }
+    });
+  </script>
+</body>
+</html>
