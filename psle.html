@@ -6,6 +6,45 @@
   <title>PSLE Study Helper</title>
   <style>
     :root{
+      --bg:#20100b;--text:#fff4ec;--accent:#ff9c6e;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Arial, sans-serif; color:var(--text);
+      background:radial-gradient(1200px 600px at 10% -10%, #54301b 0%, rgba(32,16,11,0) 60%),
+                 radial-gradient(900px 500px at 110% 10%, #4a2013 0%, rgba(32,16,11,0) 60%),
+                 var(--bg);
+    }
+    .nav {
+      display:flex; gap:20px; padding:14px 24px;
+      background:rgba(70,35,20,0.8); backdrop-filter:blur(8px);
+      position:sticky; top:0; z-index:10;
+    }
+    .nav a { color:var(--text); text-decoration:none; font-weight:600; }
+    .nav a.active { color:#ff9c6e; border-bottom:2px solid #ff9c6e; }
+    .nav a:hover { opacity:.85; }
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    h1{font-size:28px;margin:0}
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="gcse.html">GCSE / O-Level</a>
+    <a href="psle.html" class="active">PSLE</a>
+  </div>
+
+  <div class="container">
+    <h1>PSLE Study Helper</h1>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PSLE Study Helper</title>
+  <style>
+    :root{
       --bg:#20100b;--panel:#30150f;--muted:#ffb78c;--text:#fff4ec;--accent:#ff9c6e;--chip:#47231b;--chip-active:#73372b;
     }
     *{box-sizing:border-box}
@@ -125,5 +164,9 @@
       });
     });
   </script>
+</body>
+</html>
+
+  </div>
 </body>
 </html>
