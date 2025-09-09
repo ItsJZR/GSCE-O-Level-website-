@@ -1,216 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GCSE & O‑Level Study Helper</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Helper - Home</title>
   <style>
-    :root{
-      --bg:#0b1020;--panel:#0f1530;--muted:#8ca0ff;--text:#e9ecff;--accent:#6ea8ff;--chip:#1b2347;--chip-active:#2b3773;
+    body {
+      margin: 0; font-family: Arial, sans-serif; 
+      display: flex; align-items: center; justify-content: center; 
+      height: 100vh; background: #0b1020; color: white;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial; color:var(--text); background:radial-gradient(1200px 600px at 10% -10%, #1b2554 0%, rgba(11,16,32,0) 60%),radial-gradient(900px 500px at 110% 10%, #13204a 0%, rgba(11,16,32,0) 60%),var(--bg);
+    .container { text-align: center; }
+    h1 { font-size: 28px; margin-bottom: 20px; }
+    .links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    a {
+      text-decoration: none; font-weight: bold;
+      background: linear-gradient(90deg,#6ea8ff,#9f8bff);
+      color: #0d1233; padding: 14px 20px; border-radius: 12px;
     }
-    .container{max-width:1100px;margin:0 auto;padding:24px}
-    .header{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-    h1{font-size:28px;margin:0}
-    .tabs{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-    .tab{padding:10px 16px;border-radius:12px;cursor:pointer;background:#18224a;color:var(--text);border:1px solid rgba(255,255,255,.12)}
-    .tab.active{background:linear-gradient(90deg,#6ea8ff,#9f8bff);color:#0e1330;font-weight:700}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);backdrop-filter: blur(6px);box-shadow:0 10px 30px rgba(0,0,0,0.25);border-radius:18px;margin-top:16px}
-    .panel{padding:18px}
-    .grid{display:grid;gap:14px}
-    @media(min-width:900px){.grid.cols-3{grid-template-columns:1fr 1fr 1fr}}
-    label{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;opacity:.85;margin-bottom:8px}
-    select, input[type="text"], input[type="number"]{
-      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:#0e1533;color:var(--text);outline:none
-    }
-    select:focus,input:focus{border-color:#7ea3ff;box-shadow:0 0 0 4px rgba(110,168,255,.15)}
-    .boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-    .board{padding:14px;border-radius:16px;background:#101736;border:1px solid rgba(255,255,255,.1);cursor:pointer;display:flex;align-items:center;gap:10px}
-    .board input{margin-right:6px}
-    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-    button{appearance:none;border:none;background:linear-gradient(90deg,#6ea8ff,#9f8bff);color:#0d1233;padding:12px 16px;border-radius:12px;font-weight:800;cursor:pointer}
-    button.secondary{background:#18224a;color:var(--text);border:1px solid rgba(255,255,255,.12)}
-    button.ghost{background:transparent;border:1px dashed rgba(255,255,255,.25);color:var(--muted)}
-    .results{margin-top:18px}
-    .result{display:flex;justify-content:space-between;align-items:center;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);margin-bottom:10px}
-    .result a{color:var(--accent);text-decoration:none;word-break:break-all}
-    .ephemeral{opacity:.8;font-size:12px}
-    .notice{font-size:12px;opacity:.85;line-height:1.6}
-    .footer{opacity:.7;text-align:center;padding:20px}
+    a:hover { opacity: 0.85; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>GCSE & O‑Level Study Helper</h1>
+    <h1>Study Helper</h1>
+    <div class="links">
+      <a href="gcse.html">GCSE / O-Level</a>
+      <a href="psle.html">PSLE</a>
     </div>
-    <div class="tabs">
-      <div class="tab active" data-tab="papers">Past Papers</div>
-      <div class="tab" data-tab="prelims">Prelims</div>
-      <div class="tab" data-tab="videos">Videos</div>
-    </div>
-
-    <!-- Past Papers Tab -->
-    <div class="card tab-panel" id="tab-papers">
-      <div class="panel">
-        <div class="grid cols-3">
-          <div>
-            <label for="level">Level</label>
-            <select id="level">
-              <option value="GCSE" selected>GCSE</option>
-              <option value="O Level">O Level (Cambridge)</option>
-              <option value="IGCSE">IGCSE</option>
-            </select>
-          </div>
-          <div>
-            <label for="subject">Subject</label>
-            <input id="subject" type="text" placeholder="e.g., Mathematics, Biology"/>
-          </div>
-          <div>
-            <label for="year">Year (optional)</label>
-            <input id="year" type="number" placeholder="e.g., 2023" min="2000" max="2099" />
-          </div>
-        </div>
-        <label>Exam Boards</label>
-        <div class="boards" id="boards"></div>
-        <div class="actions">
-          <button id="build">Find Sources</button>
-          <button id="openAll" class="secondary">Open All</button>
-          <button id="save" class="ghost">Save Selection</button>
-          <button id="clear" class="ghost">Clear</button>
-        </div>
-        <div class="results" id="results"></div>
-      </div>
-    </div>
-
-    <!-- Prelims Tab -->
-    <div class="card tab-panel" id="tab-prelims" style="display:none">
-      <div class="panel">
-        <label for="prelim-subject">Subject</label>
-        <input type="text" id="prelim-subject" placeholder="e.g., Mathematics, Chemistry">
-        <label for="prelim-year">Year (optional)</label>
-        <input type="number" id="prelim-year" placeholder="e.g., 2023">
-        <button id="prelimBtn">Generate Search Links</button>
-        <div class="results" id="prelim-results"></div>
-      </div>
-    </div>
-
-    <!-- Videos Tab -->
-    <div class="card tab-panel" id="tab-videos" style="display:none">
-      <div class="panel">
-        <label for="video-subject">Subject</label>
-        <input type="text" id="video-subject" placeholder="e.g., Physics, Chemistry, Math">
-        <label for="video-topic">Topic (optional)</label>
-        <input type="text" id="video-topic" placeholder="e.g., Atomic Structure, Trigonometry">
-        <button id="videoBtn">Generate Video Links</button>
-        <div class="results" id="video-results"></div>
-      </div>
-    </div>
-
-    <div class="footer">Made for students & teachers • Works offline after first load • v2.0</div>
   </div>
-
-  <script>
-    // Tab switcher
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.addEventListener('click', ()=>{
-        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-        tab.classList.add('active');
-        const id = tab.dataset.tab;
-        document.querySelectorAll('.tab-panel').forEach(p=>p.style.display='none');
-        document.getElementById('tab-'+id).style.display='block';
-      });
-    });
-
-    // Past Papers Logic (same as before)
-    const BOARD_DEFS = [
-      { key: 'aqa', name: 'AQA', site: 'aqa.org.uk', levels: ['GCSE'], query: ({level, subject, year}) => `site:aqa.org.uk "past papers" ${level} "${subject}" ${year||''}` },
-      { key: 'ocr', name: 'OCR', site: 'ocr.org.uk', levels: ['GCSE'], query: ({level, subject, year}) => `site:ocr.org.uk "past paper" ${level} "${subject}" ${year||''}` },
-      { key: 'edexcel', name: 'Edexcel/Pearson', site: 'qualifications.pearson.com', levels: ['GCSE'], query: ({level, subject, year}) => `site:qualifications.pearson.com "past papers" ${level} "${subject}" ${year||''}` },
-      { key: 'wjec', name: 'WJEC/Eduqas', site: 'eduqas.co.uk', levels: ['GCSE'], query: ({level, subject, year}) => `site:eduqas.co.uk "past papers" ${level} "${subject}" ${year||''}` },
-      { key: 'camb-int', name: 'Cambridge International', site: 'cambridgeinternational.org', levels: ['IGCSE','O Level'], query: ({level, subject, year}) => `site:cambridgeinternational.org "past papers" "${level}" "${subject}" ${year||''}` },
-    ];
-    const BOARDS_EL = document.getElementById('boards');
-    const RESULTS_EL = document.getElementById('results');
-    const subjectEl = document.getElementById('subject');
-    const levelEl = document.getElementById('level');
-    const yearEl = document.getElementById('year');
-    function renderBoards(){
-      const level = levelEl.value;
-      BOARDS_EL.innerHTML = '';
-      BOARD_DEFS.filter(b => b.levels.includes(level)).forEach(b => {
-        const id = `board-${b.key}`;
-        const div = document.createElement('label');
-        div.className = 'board';
-        div.innerHTML = `<input type="checkbox" id="${id}" data-key="${b.key}" checked> <div><div style="font-weight:700">${b.name}</div><div class="ephemeral">${b.site}</div></div>`;
-        BOARDS_EL.appendChild(div);
-      });
-    }
-    function buildSearchUrl(engineQuery){ return `https://www.google.com/search?q=${encodeURIComponent(engineQuery)}`; }
-    function genLinks(){
-      const level = levelEl.value;
-      const subject = subjectEl.value.trim();
-      const year = yearEl.value.trim();
-      return Array.from(BOARDS_EL.querySelectorAll('input[type="checkbox"]:checked')).map(cb => {
-        const board = BOARD_DEFS.find(b => b.key === cb.dataset.key);
-        const q = board.query({level, subject, year: year || undefined});
-        const href = buildSearchUrl(q);
-        return { board, href, q };
-      });
-    }
-    function renderResults(){
-      const items = genLinks();
-      RESULTS_EL.innerHTML = '';
-      items.forEach(({board, href, q}) => {
-        const row = document.createElement('div');
-        row.className = 'result';
-        row.innerHTML = `<div><div style="font-weight:700;margin-bottom:6px">${board.name}</div><div class="ephemeral">${q}</div></div><a href="${href}" target="_blank">Open</a>`;
-        RESULTS_EL.appendChild(row);
-      });
-    }
-    document.getElementById('build').addEventListener('click', renderResults);
-    levelEl.addEventListener('change', ()=>{ renderBoards(); RESULTS_EL.innerHTML=''; });
-    renderBoards();
-
-    // Prelims Logic
-    document.getElementById('prelimBtn').addEventListener('click', ()=>{
-      const subj = document.getElementById('prelim-subject').value.trim();
-      const year = document.getElementById('prelim-year').value.trim();
-      const query = `${subj} O Level prelim paper Singapore ${year}`;
-      const engines=[{name:"Google",url:"https://www.google.com/search?q="},{name:"Bing",url:"https://www.bing.com/search?q="}];
-      const out=document.getElementById('prelim-results'); out.innerHTML='';
-      engines.forEach(e=>{
-        const link=e.url+encodeURIComponent(query);
-        const div=document.createElement('div'); div.className='result';
-        div.innerHTML=`<strong>${e.name}:</strong> <a href="${link}" target="_blank">${query}</a>`;
-        out.appendChild(div);
-      });
-    });
-
-    // Videos Logic
-    document.getElementById('videoBtn').addEventListener('click', ()=>{
-      const subj=document.getElementById('video-subject').value.trim();
-      const topic=document.getElementById('video-topic').value.trim();
-      if(!subj){alert("Please enter a subject.");return;}
-      const query=`${subj} ${topic} GCSE O Level tutorial`;
-      const sources=[
-        {name:"YouTube",base:"https://www.youtube.com/results?search_query="},
-        {name:"Khan Academy",base:"https://www.khanacademy.org/search?query="},
-        {name:"BBC Bitesize",base:"https://www.bbc.co.uk/search?q="},
-        {name:"Physics & Math Tutor",base:"https://www.google.com/search?q=site:physicsandmathstutor.com+"}
-      ];
-      const out=document.getElementById('video-results'); out.innerHTML='';
-      sources.forEach(src=>{
-        const link=src.base+encodeURIComponent(query);
-        const div=document.createElement('div'); div.className='result';
-        div.innerHTML=`<strong>${src.name}:</strong> <a href="${link}" target="_blank">${query}</a>`;
-        out.appendChild(div);
-      });
-    });
-  </script>
 </body>
 </html>
