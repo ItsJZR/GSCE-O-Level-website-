@@ -6,24 +6,54 @@
   <title>Study Helper - Home</title>
   <style>
     body {
-      margin: 0; font-family: Arial, sans-serif; 
+      margin: 0; font-family: "Segoe UI", Arial, sans-serif; 
       display: flex; align-items: center; justify-content: center; 
-      height: 100vh; background: #0b1020; color: white;
+      height: 100vh; 
+      background: linear-gradient(135deg, #6ea8ff, #9f8bff, #ff9c6e);
+      background-size: 200% 200%;
+      animation: gradientShift 12s ease infinite;
+      color: white;
     }
-    .container { text-align: center; }
-    h1 { font-size: 28px; margin-bottom: 20px; }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .card {
+      background: rgba(0,0,0,0.6);
+      border-radius: 20px;
+      padding: 40px 60px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+    h1 {
+      font-size: 36px; margin-bottom: 16px;
+      background: linear-gradient(90deg, #fff, #cce3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p { margin-bottom: 28px; font-size: 18px; opacity: 0.9; }
     .links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
     a {
       text-decoration: none; font-weight: bold;
       background: linear-gradient(90deg,#6ea8ff,#9f8bff);
-      color: #0d1233; padding: 14px 20px; border-radius: 12px;
+      color: #0d1233; padding: 14px 24px; border-radius: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
-    a:hover { opacity: 0.85; }
+    a:nth-child(2) {
+      background: linear-gradient(90deg,#ff9c6e,#ffc76e);
+    }
+    a:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Study Helper</h1>
+  <div class="card">
+    <h1>📘 Study Helper</h1>
+    <p>Your central hub for exam resources, past papers, and tutorials.</p>
     <div class="links">
       <a href="gcse.html">GCSE / O-Level</a>
       <a href="psle.html">PSLE</a>
